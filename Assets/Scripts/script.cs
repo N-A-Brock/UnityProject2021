@@ -94,8 +94,6 @@ public class script : MonoBehaviour
         {
             player.transform.Translate(Vector3.down * Time.deltaTime * speed);
         }
-        
-        /*
         if (Input.GetKey("left"))
         {
             player.transform.Translate(Vector3.left * Time.deltaTime * speed);
@@ -104,7 +102,7 @@ public class script : MonoBehaviour
         {
             player.transform.Translate(Vector3.right * Time.deltaTime * speed);
         }
-        */
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

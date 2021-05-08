@@ -7,8 +7,8 @@ public class projectilescript : MonoBehaviour
     public int damage;
     public float speed;
 
-    private int maxX = 25;
-    private int minX = -25;
+    private int maxX = 100;
+    private int minX = -100;
 
     public enum Direction
     {

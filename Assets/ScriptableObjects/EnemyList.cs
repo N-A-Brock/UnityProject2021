@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyScriptableObject : ScriptableObject
+public class EnemyList : ScriptableObject
 {
-    public GameObject blank0;
+    public GameObject blankEnemy;
+
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
