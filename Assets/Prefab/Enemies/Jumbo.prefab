@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5939796636629615714}
   - component: {fileID: 5939796636629615715}
   - component: {fileID: 5939796636629615712}
-  - component: {fileID: 5939796636629615713}
   - component: {fileID: 8350761794811974650}
+  - component: {fileID: 4551402630325598502}
   m_Layer: 0
   m_Name: Jumbo
   m_TagString: Untagged
@@ -136,28 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &5939796636629615713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5939796636629615775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfbd27bd6791a074097b7afd7294e70e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  startingHealth: 10
-  collided: {fileID: 0}
-  isDamaged: 0
-  nextShotTime: 0
-  reload: 1
-  aggression: 3
-  enemyProjectile: {fileID: 850310108072891036, guid: 65f5e22c8c3f5fd4081f2e19df630df8,
-    type: 3}
-  enemyProjectileStart: {fileID: 5939796636731494664}
 --- !u!95 &8350761794811974650
 Animator:
   serializedVersion: 3
@@ -177,6 +155,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4551402630325598502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939796636629615775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbd27bd6791a074097b7afd7294e70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  startingHealth: 3
+  speed: 5
+  collided: {fileID: 0}
+  accuracyRange: 2
+  reloadMin: 1
+  reloadMax: 3
+  enemyProjectile: {fileID: 5096802578638476958, guid: 4a4d0582997f2624b89cd2959e2af6df,
+    type: 3}
+  enemyProjectileStart: {fileID: 5939796636731494664}
+  enemyList: {fileID: 0}
+  projectileList: {fileID: 0}
 --- !u!1 &5939796636731494664
 GameObject:
   m_ObjectHideFlags: 0

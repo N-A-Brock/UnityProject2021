@@ -2,54 +2,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyscript : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
+    //Health
     public int health;
-    public int startingHealth = 1;
-    public GameObject collided;
-    public bool isDamaged = false;
+    public int startingHealth;
 
-    public float nextShotTime;
-    public int reload;
-    public int aggression;
+    //Movement
+    public int speed;
+
+    //Collision
+    public GameObject collided;
+
+    //Shooting
+    public int accuracyRange;
+    public float reloadMin;
+    public float reloadMax;
     public GameObject enemyProjectile;
     public GameObject enemyProjectileStart;
+
+    public ScriptableObject enemyList;
+    public ScriptableObject projectileList;
 
     // Start is called before the first frame update
     void Start()
     {
         health = startingHealth;
-
-        nextShotTime = Time.time + Random.Range(3, 5);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDamaged)
+        Shoot();
+    }
+
+    public virtual bool IsAimed()
+    {
+        if(Mathf.Abs(this.transform.position.y - PlayerScript.globalPlayer.transform.position.y) > accuracyRange)
         {
-            health -= collided.transform.GetComponent<projectilescript>().damage;
-            Destroy(collided);
-            isDamaged = false;
+            this.transform.position = Vector2.MoveTowards(
+                new Vector2(this.transform.position.x, this.transform.position.y), 
+                new Vector2(this.transform.position.x, PlayerScript.globalPlayer.transform.position.y), 
+                Time.deltaTime * speed);
+
+            return(false);
+        }
+        else
+        {
+            return(true);
         }
 
+        
+        
+    }
+
+    public virtual void Shoot()
+    {
+        if(IsAimed())
+        {
+            Instantiate(enemyProjectile, enemyProjectileStart.transform.position, new Quaternion(0, 0, 0, 0));
+        }
+        
+    }
+
+    public virtual void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
         if(health <= 0)
         {
-            Destroy(this.gameObject);
-        }
-
-
-        if(Time.time > nextShotTime)
-        {
-            Shoot();
+            Die();
         }
     }
 
-    public void Shoot()
+    public virtual void Die()
     {
-        Instantiate(enemyProjectile, enemyProjectileStart.transform.position, new Quaternion(0, 0, 0, 0));
-
-        nextShotTime = Time.time + Random.Range(reload, aggression);
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -57,7 +84,7 @@ public class enemyscript : MonoBehaviour
         if (col.gameObject.tag == "projectile")
         {
             collided = col.gameObject;
-            isDamaged = true;
+            TakeDamage(col.transform.GetComponent<ProjectileScript>().damage);
         }
     }
 }

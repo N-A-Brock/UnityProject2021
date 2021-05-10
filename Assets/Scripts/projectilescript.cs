@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class projectilescript : MonoBehaviour
+public class ProjectileScript : MonoBehaviour
 {
     public int damage;
     public float speed;

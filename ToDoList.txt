@@ -1,0 +1,7 @@
+Rewrite enemy script with inheritance in mind
+
+Add more unique enemy types
+
+Rework wave system to be less ass
+
+Redo player sprite maybe???

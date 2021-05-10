@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class script : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
+    public static GameObject globalPlayer;
+
+
+
     public int playerHealth;
     private int playerStartingHealth = 3;
     public int playerMaxHealth;
@@ -33,6 +37,13 @@ public class script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (globalPlayer != null)
+        {
+            Destroy(this.gameObject);
+        }
+        globalPlayer = player;
+
+
         startPosition = new Vector3(-10, 0, 0);
         player.transform.position = startPosition;
 
@@ -57,7 +68,7 @@ public class script : MonoBehaviour
 
         if (isDamaged)
         {
-            playerHealth -= collisionObject.transform.GetComponent<projectilescript>().damage;
+            playerHealth -= collisionObject.transform.GetComponent<ProjectileScript>().damage;
             Destroy(collisionObject);
             isDamaged = false;
         }
