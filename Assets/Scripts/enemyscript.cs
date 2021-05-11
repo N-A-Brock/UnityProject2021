@@ -18,16 +18,17 @@ public class EnemyScript : MonoBehaviour
     public int accuracyRange;
     public float reloadMin;
     public float reloadMax;
-    public GameObject enemyProjectile;
-    public GameObject enemyProjectileStart;
 
-    public ScriptableObject enemyList;
-    public ScriptableObject projectileList;
+    public int primaryProjectileStartAmount;
+    public GameObject primaryProjectile;
+    public GameObject[] primaryProjectileStart;
 
     // Start is called before the first frame update
     void Start()
     {
         health = startingHealth;
+
+        primaryProjectileStart = new GameObject[primaryProjectileStartAmount];
     }
 
     // Update is called once per frame
@@ -60,7 +61,21 @@ public class EnemyScript : MonoBehaviour
     {
         if(IsAimed())
         {
-            Instantiate(enemyProjectile, enemyProjectileStart.transform.position, new Quaternion(0, 0, 0, 0));
+            if(primaryProjectileStart.Length == 1)
+            {
+                Instantiate(primaryProjectile, primaryProjectileStart[0].transform.position, new Quaternion(0, 0, 0, 0));
+            }
+            else
+            {
+                int count = 0;
+                if (count > primaryProjectileStart.Length)
+                {
+
+                }
+                Instantiate(primaryProjectile, primaryProjectileStart[count-1].transform.position, new Quaternion(0, 0, 0, 0));
+                
+            }
+            
         }
         
     }
