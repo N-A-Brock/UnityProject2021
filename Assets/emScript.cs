@@ -5,7 +5,6 @@ using UnityEngine;
 public class emScript : MonoBehaviour
 {
 
-    
     public int spawningZones;
     public int waveSize;
 
