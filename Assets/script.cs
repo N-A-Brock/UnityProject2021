@@ -68,6 +68,8 @@ public class script : MonoBehaviour
 
         if (Input.GetKey("space"))
         {
+
+            scoreScript.score += 5;
             if(nextShot == side.left)
             {
                 Instantiate(projectile, projectileStartLeft.transform.position, new Quaternion(0, 0, 0, 0));

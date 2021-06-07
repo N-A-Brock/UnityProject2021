@@ -8,6 +8,11 @@ public class emScript : MonoBehaviour
     public int spawningZones;
     public int waveSize;
 
+    public int wave;
+
+    public int maxEnemiesOnScreen;
+    public bool lastEnemySpawned;
+
     public int count;
     public int selection;
 
@@ -21,19 +26,33 @@ public class emScript : MonoBehaviour
     public GameObject iP_1;
     public GameObject iP_2;
 
+    public GameObject enemyHolder;
+
     public enemyScriptableObject enemyList;
-    public ScriptableObject levelList;
+    public wavesScriptableObject levelList;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        wave = 0;
+        SpawnEnemyPattern(GenerateEnemyPattern(levelList.waves[0])); //HERE DIPSHIT
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(lastEnemySpawned)
+        {
+            if (wave <= (levelList.numberOfWaves - 1))
+            {
+                wave++;
+                SpawnEnemyPattern(GenerateEnemyPattern(levelList.waves[wave]));//HERE DIPSHIT
+            }
+            else
+            {
+                Debug.Log("You WIN!!!");
+            }
+        }
     }
 
     public int[,] GenerateEnemyPattern(int[] enemies)
@@ -58,16 +77,17 @@ public class emScript : MonoBehaviour
 
         //Create the return array
         int[,] pattern = new int[spawningZones, waveSize];
+        Debug.Log("sZ: " + spawningZones + "\twS: " + waveSize);
 
 
 
-
-        for (int i = spawningZones; i > 0; i--)
+        for (int i = (spawningZones - 1); i >= 0; i--)//HERE DIPSHIT
         {
-            for (int j = 0; j < waveSize; j++) //comparison operator
+            for (int j = 0; j < waveSize; j++)
             {
                 selection = Random.Range(0, enemies.Length);
 
+                Debug.Log("i: " + i + "\tj: " + j);
                 //Note
                 pattern[i, j] = selection;
                 enemies[selection] -= 1;
@@ -80,11 +100,27 @@ public class emScript : MonoBehaviour
     {
         GameObject[] iP = new GameObject[] {iP_0, iP_1, iP_2 };
         GameObject[] sZ = new GameObject[] { sZ_0, sZ_1, sZ_2, sZ_3, sZ_4 };
+        lastEnemySpawned = false;
+        
+        for (int x = 0; x < sZ.Length; x++)
+        {
+            for (int y = 0; y < (_pattern.Length/sZ.Length); y++)
+            {
 
+                if(enemyHolder.transform.childCount < maxEnemiesOnScreen)
+                {
+                    Instantiate(enemyList.enemies[_pattern[x, y]], iP[Random.Range(0, iP.Length - 1)].transform.position, new Quaternion(0, 0, 0, 0), enemyHolder.transform);
+                    Debug.Log("Spawned enemy of type: " + _pattern[x, y] + "in spawn zone: " + x);
+                }
+                else
+                {
+                    y--;
+                    x--;
+                }
+            }
+        }
 
-        Instantiate(enemyList.enemies[_pattern[0, 0]] , iP[Random.Range(0, iP.Length - 1)].transform.position , new Quaternion(0, 0, 0, 0));
-
-
+        lastEnemySpawned = true;
     }
 
 }
